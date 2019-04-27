@@ -27,7 +27,7 @@ class Prices extends Component{
 
 
     render(){
-        const trainItems = this.state.trains.map((train, i) => {
+        const trainitem = this.state.trains.map((train, i) => {
             return(
                <TrainItem key={train.id}  item={train}/>
             )
@@ -39,7 +39,7 @@ class Prices extends Component{
                 <br/> 
                 <ul class="collection with-header">
                 <li class="collection-header"><h4>Trains</h4></li>
-                    {trainItems}
+                    {trainitem}
                 </ul>
             </div>
 
