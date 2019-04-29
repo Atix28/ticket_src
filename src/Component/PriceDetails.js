@@ -57,13 +57,13 @@ class PriceDetails extends Component{
               
                 <br/>
                 
-              <Link className="btn grey" to  ="/buy">Back</Link>
+              <Link className="btn orange darken-3" to  ="/buy">Back</Link>
 
-              <h1>{this.state.details.name}</h1>
+              <h3>{this.state.details.name}</h3>
 
               <form>
               <ul className="collection">
-                <li className="collection-item">Price : Rs {this.state.details.price}</li>
+                <li className="collection-item">Price : {this.state.details.price} LKR</li>
                 <li className="collection-item">
                     <div className="input-field col s6">
                         <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange}/>
@@ -73,13 +73,14 @@ class PriceDetails extends Component{
                     <label>Total Price</label>
                     <div className="input-field col s12">
                         
-                         <input disabled value={"Your Total : Rs "+total} id="disabled" type="text" className="validate"/>
+                         <input disabled value={"Your Total : "+total + " LKR"} id="disabled" type="text" className="validate"/>
                         
                     </div>
                 </li>
                 
               </ul>
-
+              <Link to={{pathname: "/CardPayment", total }} ><button className="btn green">Pay From Card<i className="material-icons right">send</i></button></Link> &nbsp;
+              <button className="btn red">Pay From Dialog Credit<i className="material-icons right">send</i></button> 
               </form>
           </div>
         )

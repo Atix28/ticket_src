@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 class Home extends Component {
   render() {
-    return (<div align="center">
+    return (<div>
         <br/>
         <br/>
         <br/>
@@ -23,7 +23,7 @@ class Home extends Component {
     <Card.Text>
      Buy tickets for the train you need 
   </Card.Text>
-   <Link to="/buy"><Button variant="primary">Buy Ticket</Button></Link>
+   <Link to="/buy"><Button className="btn orange darken-3">Buy Ticket</Button></Link>
   </Card.Body>
 </Card>
 
@@ -40,7 +40,7 @@ class Home extends Component {
   <Card.Text>
    Expore the Prices of train Tickets and details of Trains
   </Card.Text>
-  <Link to="/prices"><Button variant="primary">See Details</Button></Link>
+  <Link to="/prices"><Button className="btn orange darken-3">See Details</Button></Link>
 </Card.Body>
 </Card>
 
@@ -56,7 +56,7 @@ class Home extends Component {
   <Card.Text>
     Want to know who we are ? 
   </Card.Text>
-  <Link to="/about"><Button variant="primary">Learn</Button></Link>
+  <Link to="/about"><Button className="btn orange darken-3">Learn</Button></Link>
 </Card.Body>
 </Card>
 

@@ -38,7 +38,7 @@ class Buy extends Component{
                 <br/>
                 <br/> 
                 <ul class="collection with-header">
-                <li class="collection-header"><h4>Chose a Train</h4></li>
+                <li class="collection-header"><h4>Choose a Train</h4></li>
                     {priceItems}
                 </ul>
             </div>

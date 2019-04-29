@@ -7,6 +7,7 @@ import Prices from './Prices';
 import TrainDetails from './TrainDetails';
 import Buy from './Buy';
 import PriceDetails from './PriceDetails';
+import CardPayment from './CardPayment';
 
 
 
@@ -18,6 +19,7 @@ const Main = () => (
             <Route exact path ='/book' component={Book}/>
             <Route exact path ='/buy' component={Buy}/>
             <Route exact path ='/prices' component={Prices}/>
+            <Route exact path = '/CardPayment' component={CardPayment}/>
             <Route exact path = '/prices/:id' component={TrainDetails}/>
             <Route exact path = '/buy/:id' component={PriceDetails}/>
         </Switch>

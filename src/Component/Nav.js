@@ -6,7 +6,7 @@ class Nav extends Component{
     render(){
         return(
             <div>
-                <nav className="blue darken-3">
+                <nav className="orange darken-3">
     <div className="nav-wrapper">
     <a href="/" className="brand-logo center">GetTrain</a>
       <a data-target="main-menu" className="sidenav-trigger show-on-large"><i className="fa fa-bars"></i></a>

@@ -30,7 +30,7 @@ class TrainDetails extends Component{
               
                 <br/>
                 <br/>
-              <Link className="btn grey" to  ="/prices">Back</Link>
+              <Link className="btn orange darken-3" to  ="/prices">Back</Link>
               <h1>{this.state.details.name}</h1>
               <ul className="collection">
                 <li className="collection-item">Price : {this.state.details.price}</li>
