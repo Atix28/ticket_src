@@ -12,16 +12,22 @@ class CardPayment extends Component {
 
         this.state = {
             total: this.props.location.total,
-
-
+            REACT_APP_EMAILJS_USERID: 'user_17Y3yksLiJyYnOXq04djD',
+            templateId: 'template_IldEFUEB',
+            receiverEmail: 'isuruliyanage1@gmail.com',
+            formSubmitted: false,
+            feedback: 'Test'
         }
         this.onSubmit = this.onSubmit.bind(this);
         this.sendFeedback = this.sendFeedback.bind(this);
         this.addPaymentDetails = this.addPaymentDetails.bind(this);
     }
 
-    onSubmit(e) {
-        const userdetail = {
+    onSubmit(event) {
+
+        event.preventDefault();
+
+        const feedback = {
             fname: this.refs.fname.value,
             lname: this.refs.lname.value,
             email: this.refs.email.value,
@@ -29,9 +35,27 @@ class CardPayment extends Component {
             cost: this.props.location.total
         }
 
-        this.addPaymentDetails(userdetail);
-        e.preventDefault();
+        const { templateId, receiverEmail } = this.state;
+
+        console.log(feedback, 'onSubmit')
+
+        this.sendFeedback(
+            templateId,
+            this.sender,
+            this.refs.email.value,
+            this.state.feedback
+        );
+
+        this.setState({
+            formSubmitted: true
+        });
+
+        //this.addPaymentDetails(feedback);
+
     }
+
+
+
 
     sendFeedback(templateId, senderEmail, receiverEmail, feedback) {
         window.emailjs
@@ -79,7 +103,7 @@ class CardPayment extends Component {
 
                 <div className="row">
 
-                    <form id="myform" class="col s12" onSubmit={this.onSubmit.bind(this)} method="post">
+                    <form id="myform" class="col s12" onSubmit={this.onSubmit}>
                         <Link className="btn orange darken-3" to="/buy">Back</Link>
                         <ul className="collection">
                             <li className="collection-item">Enter Card Details</li>
