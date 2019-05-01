@@ -6,6 +6,8 @@ export default class FeedbackForm extends Component {
     super(props);
 
     this.state = {
+      templateId: this.props.REACT_APP_EMAILJS_TEMPLATEID,
+      receiverEmail: this.props.REACT_APP_EMAILJS_RECEIVER,
       feedback: '',
       formSubmitted: false
     }
@@ -33,13 +35,10 @@ export default class FeedbackForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
 
-    const {
-      REACT_APP_EMAILJS_RECEIVER: receiverEmail,
-      REACT_APP_EMAILJS_TEMPLATEID: template
-    } = this.props.env;
+    const { templateId, receiverEmail } = this.state;
 
     this.sendFeedback(
-      template,
+      templateId,
       this.sender,
       receiverEmail,
       this.state.feedback
@@ -58,6 +57,7 @@ export default class FeedbackForm extends Component {
         feedback
       })
       .then(res => {
+        console.log('MAIL SENT!')
         this.setState({
           formEmailSent: true
         });
