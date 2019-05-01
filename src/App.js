@@ -5,11 +5,13 @@ import Nav from './Component/Nav';
 
 
 
+
 const App = () => (
   <div>
     <Nav/>
     <div className="container">
            <Main/>
+                               
     </div>
   </div>
 

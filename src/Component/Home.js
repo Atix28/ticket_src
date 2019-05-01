@@ -56,7 +56,7 @@ class Home extends Component {
   <Card.Text>
     Want to know who we are ? 
   </Card.Text>
-  <Link to="/about"><Button className="btn orange darken-3">Learn</Button></Link>
+  <Link to="/mail"><Button className="btn orange darken-3">Learn</Button></Link>
 </Card.Body>
 </Card>
 

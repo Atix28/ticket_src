@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import FeedbackForm from './FeedbackForm';
+import PropTypes from 'prop-types';
 
 
 class CardPayment extends Component{
@@ -8,8 +10,11 @@ class CardPayment extends Component{
         super(props);
         
         this.state={
-            total: this.props.location.total
+            total: this.props.location.total,
+            
+        
         }
+        this.onSubmit = this.onSubmit.bind(this);
         
     }
     
@@ -20,10 +25,18 @@ class CardPayment extends Component{
             email:this.refs.email.value,
             postcode:this.refs.postcode.value,
             cost:this.props.location.total
+            
+            
+            
 
         }
         this.addPaymentDetails(userdetail);
         e.preventDefault();
+
+
+        
+
+                
     }
       
     addPaymentDetails(userdetail){
@@ -33,13 +46,16 @@ class CardPayment extends Component{
             data:userdetail
         }).then(response => {
             alert("Payment Successful!");
+            
             this.props.history.push('/');
         }).catch(err => console.log(err));
     }
 
     render(){
 
-       const {total} = this.state;
+       
+        const {total} = this.state;
+        
         
 
 
@@ -52,7 +68,7 @@ class CardPayment extends Component{
 
               <div className="row">
               
-              <form class="col s12" onSubmit={this.onSubmit.bind(this)}>
+              <form id="myform" class="col s12" onSubmit={this.onSubmit.bind(this)} method="post">
               <Link className="btn orange darken-3" to  ="/buy">Back</Link>
               <ul className="collection">
                 <li className="collection-item">Enter Card Details</li>
@@ -60,13 +76,13 @@ class CardPayment extends Component{
                 
                     <div className="input-field col s6">
                         <i class="material-icons prefix">face</i>
-                        <input id="firstname" type="text" className="validate" ref="fname" required />
+                        <input id="firstname" type="text" className="validate" ref="fname"  required />
                         <label htmlFor="first_name">Frist Name</label>
                         
                     </div>
                     <div className="input-field col s6">
                         <i class="material-icons prefix">face</i>
-                        <input id="lastname" type="text" className="validate" ref="lname" required />
+                        <input id="lastname" type="text" className="validate" ref="lname" name="lname" required />
                         <label htmlFor="last_name">Last Name</label>
                         
                     </div>
@@ -105,7 +121,7 @@ class CardPayment extends Component{
                     
                     <div className="input-field col s12">
                         
-                         <input disabled value={"Your Total : " + total +" LKR"} id="disabled"  type="text" className="validate"/>
+                         <input disabled value={"Your Total : " + total +" LKR"} id="disabled" name="cost"  type="text" className="validate"/>
                         
                     </div>
                 </li>
@@ -120,10 +136,14 @@ class CardPayment extends Component{
 
               </form>
             </div>
+            <FeedbackForm env={this.props.env}/>
           </div>
         )
     }
 }
 
+CardPayment.propTypes = {
+    env: PropTypes.object.isRequired
+  };
 
 export default CardPayment;
