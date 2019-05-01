@@ -5,6 +5,7 @@ import FeedbackForm from './FeedbackForm';
 import PropTypes from 'prop-types';
 
 
+
 class CardPayment extends Component{
     constructor(props){
         super(props);
@@ -142,8 +143,6 @@ class CardPayment extends Component{
     }
 }
 
-CardPayment.propTypes = {
-    env: PropTypes.object.isRequired
-  };
+
 
 export default CardPayment;
