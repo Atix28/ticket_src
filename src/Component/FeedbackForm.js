@@ -2,14 +2,19 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 
 export default class FeedbackForm extends Component {
-  state = {
-    feedback: '',
-    formSubmitted: false
-  };
+  constructor(props) {
+    super(props);
 
-  handleCancel = this.handleCancel.bind(this);
-  handleChange = this.handleChange.bind(this);
-  handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      feedback: '',
+      formSubmitted: false
+    }
+
+    this.handleCancel = this.handleCancel.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
 
   static sender = 'sender@example.com';
 
