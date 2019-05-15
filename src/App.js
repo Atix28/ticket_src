@@ -3,7 +3,7 @@ import Main from './Component/Main';
 import './App.css';
 import Nav from './Component/Nav';
 import PropTypes from 'prop-types';
-import FeedbackForm from './Component/FeedbackForm';
+
 //import { env } from './config';
 
 

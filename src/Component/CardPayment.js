@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import FeedbackForm from './FeedbackForm';
-import PropTypes from 'prop-types';
-
-
 
 class CardPayment extends Component {
     constructor(props) {
@@ -34,35 +30,50 @@ class CardPayment extends Component {
             postcode: this.refs.postcode.value,
             cost: this.props.location.total
         }
+        
+        
 
         const { templateId, receiverEmail } = this.state;
-
+        
         console.log(feedback, 'onSubmit')
+        
 
-        this.sendFeedback(
-            templateId,
-            this.sender,
-            this.refs.email.value,
-            this.state.feedback
-        );
+            this.sendFeedback(
+                templateId,
+                this.sender,
+                this.refs.email.value,
+                this.state.feedback,
+                this.refs.lname.value,
+                this.refs.fname.value,
+                feedback.cost
+                
 
-        this.setState({
-            formSubmitted: true
-        });
 
-        //this.addPaymentDetails(feedback);
+            );
 
+            this.setState({
+                formSubmitted: true
+            });
+            
+            this.addPaymentDetails(feedback);
+        
     }
+    
+    
 
 
 
-
-    sendFeedback(templateId, senderEmail, receiverEmail, feedback) {
+    sendFeedback(templateId, senderEmail, receiverEmail, feedback,lname,fname,cost) {
         window.emailjs
             .send('mailgun', templateId, {
                 senderEmail,
                 receiverEmail,
-                feedback
+                feedback,
+                lname,
+                fname,
+                cost
+                
+                
             })
             .then(res => {
                 console.log('MAIL SENT!')
@@ -75,15 +86,18 @@ class CardPayment extends Component {
     }
 
     addPaymentDetails(userdetail) {
-        axios.request({
-            method: 'post',
-            url: 'http://localhost:3000/api/buyers',
-            data: userdetail
-        }).then(response => {
-            alert("Payment Successful!");
+        
+        
+            axios.request({
+                method: 'post',
+                url: 'http://localhost:3000/api/buyers',
+                data: userdetail
+            }).then(response => {
+                alert("Payment Successful!");
+                this.props.history.push('/');
 
-            this.props.history.push('/');
-        }).catch(err => console.log(err));
+            }).catch(err => console.log(err));
+        
     }
 
     render() {
@@ -103,20 +117,20 @@ class CardPayment extends Component {
 
                 <div className="row">
 
-                    <form id="myform" class="col s12" onSubmit={this.onSubmit}>
+                    <form id="myform" className="col s12" onSubmit={this.onSubmit}>
                         <Link className="btn orange darken-3" to="/buy">Back</Link>
                         <ul className="collection">
                             <li className="collection-item">Enter Card Details</li>
                             <li className="collection-item">
 
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">face</i>
+                                    <i className="material-icons prefix">face</i>
                                     <input id="firstname" type="text" className="validate" ref="fname" required />
                                     <label htmlFor="first_name">Frist Name</label>
 
                                 </div>
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">face</i>
+                                    <i className="material-icons prefix">face</i>
                                     <input id="lastname" type="text" className="validate" ref="lname" name="lname" required />
                                     <label htmlFor="last_name">Last Name</label>
 
@@ -124,28 +138,31 @@ class CardPayment extends Component {
 
 
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">email</i>
+                                    <i className="material-icons prefix">email</i>
                                     <input id="email" type="email" className="validate" ref="email" required />
                                     <label htmlFor="email">Email</label>
                                 </div>
 
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">room</i>
-                                    <input id="postalcode" type="number" className="validate" ref="postcode" data-length="5" required />
+                                    <i className="material-icons prefix">room</i>
+                                    <input id="postalcode" type="number" className="validate" ref="postcode"  required onInput={(e)=>{ 
+                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,5)}} min={5} />
                                     <label htmlFor="postalcode">Postal Code</label>
 
                                 </div>
 
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">credit_card</i>
-                                    <input id="card_number" type="number" className="validate" data-length="10" required />
+                                    <i className="material-icons prefix">credit_card</i>
+                                    <input id="card_number" type="number" className="validate" required onInput={(e)=>{ 
+                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)}} min={10}  />
                                     <label htmlFor="card_number">Card Number</label>
 
                                 </div>
 
                                 <div className="input-field col s6">
-                                    <i class="material-icons prefix">payment</i>
-                                    <input id="cvc" type="number" className="validate" required data-length="3" />
+                                    <i className="material-icons prefix">payment</i>
+                                    <input id="cvc" type="number" className="validate" required onInput={(e)=>{ 
+                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3)}} min={3} />
                                     <label htmlFor="cvc">CVC</label>
 
                                 </div>
