@@ -10,6 +10,7 @@ class PriceDetails extends Component{
             govdetails:'',
             value:'',
             total:'',
+            dis:'',
             discount:10,
             nic:''
          
@@ -42,7 +43,7 @@ class PriceDetails extends Component{
         this.setState({value: event.target.value});
         console.log(event.target.value);
         let tot;
-        let dis;
+        let dis = 0;
 
         if(this.state.govdetails.count === 1){
              dis = (this.state.details.price * event.target.value * this.state.discount / 100);
@@ -54,6 +55,7 @@ class PriceDetails extends Component{
 
         
         console.log(tot);
+        this.setState({dis: dis})
         this.setState({total: tot})
 
       }
@@ -89,6 +91,7 @@ class PriceDetails extends Component{
     render(){
 
         const {total} = this.state;
+        const {dis}  = this.state;
 
         return(
           <div>
@@ -103,21 +106,24 @@ class PriceDetails extends Component{
               <ul className="collection">
                 <li className="collection-item">Price : {this.state.details.price} LKR</li>
                 <li className="collection-item">
-                    <div className="input-field col s6">
-                        <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange}/>
-                        <label htmlFor="last_name">Number of Tickets</label>
-                    </div>
+                    
                     
                     <div className="input-field col s6">
                         <input id="nic" type="text" className="validate" ref="nic" onChange={this.nichandle}/>
                         <label htmlFor="nic">NIC (Governmet Employee Discount)</label>
                         
                     </div>
+                    <div className="input-field col s6">
+                        <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange}/>
+                        <label htmlFor="last_name">Number of Tickets</label>
+                    </div>
                     
 
                     <label>Total Price</label>
                     <div className="input-field col s12">
                         
+                        <input disabled value={"Discount : "+dis + " LKR"} id="disabled" type="text" className="validate"/>
+
                          <input disabled value={"Your Total : "+total + " LKR"} id="disabled" type="text" className="validate"/>
                         
                     </div>
