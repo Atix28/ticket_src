@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class CardPayment extends Component {
+class MobilePayment extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             total: this.props.location.total,
             REACT_APP_EMAILJS_USERID: 'user_17Y3yksLiJyYnOXq04djD',
-            templateId: 'template_IldEFUEB',
+            templateId: 'dialog',
             receiverEmail: '',
             formSubmitted: false,
             feedback: 'Test'
@@ -24,10 +24,10 @@ class CardPayment extends Component {
         event.preventDefault();
 
         const feedback = {
-            fname: this.refs.fname.value,
+            name: this.refs.fname.value,
             lname: this.refs.lname.value,
             email: this.refs.email.value,
-            postcode: this.refs.postcode.value,
+            mobile:this.refs.mobile.value,
             cost: this.props.location.total
         }
         
@@ -45,6 +45,7 @@ class CardPayment extends Component {
                 this.state.feedback,
                 this.refs.lname.value,
                 this.refs.fname.value,
+                this.refs.mobile.value,
                 feedback.cost
                 
 
@@ -60,7 +61,7 @@ class CardPayment extends Component {
     }
     
     
-    sendFeedback(templateId, senderEmail, receiverEmail, feedback,lname,fname,cost) {
+    sendFeedback(templateId, senderEmail, receiverEmail, feedback,lname,fname,mobile,cost) {
         window.emailjs
             .send('mailgun', templateId, {
                 senderEmail,
@@ -68,6 +69,7 @@ class CardPayment extends Component {
                 feedback,
                 lname,
                 fname,
+                mobile,
                 cost
                 
                 
@@ -87,7 +89,7 @@ class CardPayment extends Component {
         
             axios.request({
                 method: 'post',
-                url: 'http://localhost:3000/api/buyers',
+                url: 'http://localhost:3000/api/dialog_buyers',
                 data: userdetail
             }).then(response => {
                 alert("Payment Successful!");
@@ -117,7 +119,7 @@ class CardPayment extends Component {
                     <form id="myform" className="col s12" onSubmit={this.onSubmit}>
                         <Link className="btn orange darken-3" to="/buy">Back</Link>
                         <ul className="collection">
-                            <li className="collection-item">Enter Card Details</li>
+                            <li className="collection-item">Enter Mobile Details</li>
                             <li className="collection-item">
 
                                 <div className="input-field col s6">
@@ -141,26 +143,18 @@ class CardPayment extends Component {
                                 </div>
 
                                 <div className="input-field col s6">
-                                    <i className="material-icons prefix">room</i>
-                                    <input id="postalcode" type="number" className="validate" ref="postcode"  required onInput={(e)=>{ 
-                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,5)}} min={5} />
-                                    <label htmlFor="postalcode">Postal Code</label>
-
-                                </div>
-
-                                <div className="input-field col s6">
-                                    <i className="material-icons prefix">credit_card</i>
-                                    <input id="card_number" type="number" className="validate" required onInput={(e)=>{ 
-                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,10)}} min={10}  />
-                                    <label htmlFor="card_number">Card Number</label>
+                                    <i className="material-icons prefix">phone</i>
+                                    <input id="phone" type="number" className="validate" ref="mobile"  required onInput={(e)=>{ 
+                                        e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,9)}} min={9} />
+                                    <label htmlFor="phone">Mobile Number</label>
 
                                 </div>
 
                                 <div className="input-field col s6">
                                     <i className="material-icons prefix">payment</i>
-                                    <input id="cvc" type="number" className="validate" required onInput={(e)=>{ 
+                                    <input id="pin" type="number" className="validate" required onInput={(e)=>{ 
                                         e.target.value = Math.max(0, parseInt(e.target.value) ).toString().slice(0,3)}} min={3} />
-                                    <label htmlFor="cvc">CVC</label>
+                                    <label htmlFor="pin">PIN</label>
 
                                 </div>
 
@@ -193,4 +187,4 @@ class CardPayment extends Component {
 
 
 
-export default CardPayment;
+export default MobilePayment;
