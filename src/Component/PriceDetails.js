@@ -109,12 +109,12 @@ class PriceDetails extends Component{
                     
                     
                     <div className="input-field col s6">
-                        <input id="nic" type="text" className="validate" ref="nic" onChange={this.nichandle}/>
+                        <input id="nic" type="text" className="validate" ref="nic" onChange={this.nichandle} />
                         <label htmlFor="nic">NIC (Governmet Employee Discount)</label>
                         
                     </div>
                     <div className="input-field col s6">
-                        <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange}/>
+                        <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange} required/>
                         <label htmlFor="last_name">Number of Tickets</label>
                     </div>
                     

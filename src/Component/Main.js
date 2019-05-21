@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Book from './Book';
 import Home from './Home';
 import Prices from './Prices';
 import TrainDetails from './TrainDetails';
@@ -17,7 +16,6 @@ const Main = () => (
     <main>
         <Switch>
             <Route exact path ='/' component={Home}/>
-            <Route exact path ='/book' component={Book}/>
             <Route exact path ='/buy' component={Buy}/>
             <Route exact path ='/prices' component={Prices}/>
             <Route exact path = '/CardPayment' component={CardPayment}/>
