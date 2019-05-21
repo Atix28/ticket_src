@@ -10,40 +10,49 @@ class PriceDetails extends Component{
             govdetails:'',
             value:'',
             total:'',
-            discount:50,
+            discount:10,
             nic:''
          
         };
 
         this.handleChange = this.handleChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
+        this.nichandle = this.nichandle.bind(this);
         
     }
-        onSubmit(event){
+        nichandle(event){
+
+            const nic = this.refs.nic.value
+            axios.get(`http://localhost:3000/api/gov_dbs/count?where={"nic":"${nic}"}`)
+            .then (response => {
+                this.setState({govdetails:response.data}, () =>{
+                    console.log(this.state);
+                    
+                })
+            }).catch(err => console.log(err));
 
             
-                let nic  =  this.refs.nic.value
-                axios.get(`http://localhost:3000/api/gov_dbs/count?where={"nic":"972003399V"}`)
-                .then (response => {
-                    if(this.count === 1){
-                        console.log("Hellow");
-                    }
-                    else{
-                        console.log("else")
-                    }
-                }).catch(err => console.log(err));
+        
             
         }
 
+            
 
 
     handleChange(event) {
         this.setState({value: event.target.value});
         console.log(event.target.value);
-        
-        
+        let tot;
+        let dis;
 
-        const tot = (this.state.details.price * event.target.value);
+        if(this.state.govdetails.count === 1){
+             dis = (this.state.details.price * event.target.value * this.state.discount / 100);
+             tot = (this.state.details.price * event.target.value - dis)
+        }
+        else{
+             tot = (this.state.details.price * event.target.value);
+        }
+
+        
         console.log(tot);
         this.setState({total: tot})
 
@@ -68,6 +77,8 @@ class PriceDetails extends Component{
                 console.log(this.state);
             })
         }).catch(err =>console.log(err));
+
+        
     }
 
    
@@ -96,13 +107,13 @@ class PriceDetails extends Component{
                         <input id="no_ticket" type="number" className="validate" value={this.state.value} onChange={this.handleChange}/>
                         <label htmlFor="last_name">Number of Tickets</label>
                     </div>
-                    <form onSubmit={this.onSubmit}>
+                    
                     <div className="input-field col s6">
-                        <input id="nic" type="text" className="validate" ref="nic"/>
+                        <input id="nic" type="text" className="validate" ref="nic" onChange={this.nichandle}/>
                         <label htmlFor="nic">NIC (Governmet Employee Discount)</label>
-                        <input type="submit" value="Calculate Discount" className="btn red"/> &nbsp;
+                        
                     </div>
-                    </form>
+                    
 
                     <label>Total Price</label>
                     <div className="input-field col s12">
